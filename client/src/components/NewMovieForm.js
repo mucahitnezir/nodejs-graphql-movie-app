@@ -19,53 +19,61 @@ class NewMovieForm extends Component {
 
   render() {
     return (
-      <Mutation mutation={addMovieMutation}>
-        {(addMovie, {loading, error}) => (
-          <form onSubmit={e => {
-            e.preventDefault();
-            addMovie({
-              variables: {
-                title: this.state.title,
-                description: this.state.description,
-                year: parseInt(this.state.year),
-                directorId: this.state.directorId
-              },
-              refetchQueries: [{query: getMoviesQuery}]
-            })
-          }}>
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input type="text" name="title" id="title" className="form-control" onChange={this.onChange}/>
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <textarea name="description" id="description" className="form-control" rows="3" onChange={this.onChange}/>
-            </div>
-            <div className="form-group">
-              <label htmlFor="year">Year</label>
-              <input type="number" name="year" id="year" className="form-control" onChange={this.onChange}/>
-            </div>
-            <div className="form-group">
-              <label htmlFor="directorId">Director</label>
-              <select name="directorId" id="directorId" className="form-control" onChange={this.onChange}>
-                <option value="">Choose one director</option>
-                <Query query={getDirectorsQuery}>
-                  {({loading, error, data}) => {
-                    if (loading) return <option disabled={true}>Loading..</option>;
-                    if (error) return <option disabled={true}>Error</option>;
+      <div>
+        <h2 className="h3 text-center">Add New Movie</h2>
+        <Mutation mutation={addMovieMutation}>
+          {(addMovie, {loading, error}) => (
+            <div className="card">
+              <div className="card-body">
+                <form onSubmit={e => {
+                  e.preventDefault();
+                  addMovie({
+                    variables: {
+                      title: this.state.title,
+                      description: this.state.description,
+                      year: parseInt(this.state.year),
+                      directorId: this.state.directorId
+                    },
+                    refetchQueries: [{query: getMoviesQuery}]
+                  })
+                }}>
+                  <div className="form-group">
+                    <label htmlFor="title">Title</label>
+                    <input type="text" name="title" id="title" className="form-control" onChange={this.onChange}/>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="description">Description</label>
+                    <textarea name="description" id="description" className="form-control" rows="3"
+                              onChange={this.onChange}/>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="year">Year</label>
+                    <input type="number" name="year" id="year" className="form-control" onChange={this.onChange}/>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="directorId">Director</label>
+                    <select name="directorId" id="directorId" className="form-control" onChange={this.onChange}>
+                      <option value="">Choose one director</option>
+                      <Query query={getDirectorsQuery}>
+                        {({loading, error, data}) => {
+                          if (loading) return <option disabled={true}>Loading..</option>;
+                          if (error) return <option disabled={true}>Error</option>;
 
-                    return data.directors.map(director => <option key={director.id}
-                                                                  value={director.id}>{director.name}</option>)
-                  }}
-                </Query>
-              </select>
+                          return data.directors.map(director => <option key={director.id}
+                                                                        value={director.id}>{director.name}</option>)
+                        }}
+                      </Query>
+                    </select>
+                  </div>
+                  <button type="submit" className="btn btn-success">Save</button>
+                  {error && <div>{error.message}</div>}
+                  {loading && <div>Loading..</div>}
+                </form>
+              </div>
             </div>
-            <button type="submit" className="btn btn-success">Save</button>
-            {error && <div>{error.message}</div>}
-            {loading && <div>Loading..</div>}
-          </form>
-        )}
-      </Mutation>
+          )}
+        </Mutation>
+      </div>
     );
   }
 }
