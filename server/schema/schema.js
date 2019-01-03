@@ -6,12 +6,12 @@ const graphql = require('graphql');
 // const {movies, directors} = require('../data/fake-data');
 const {Movie, Director} = require('../models');
 
-const {GraphQLID, GraphQLString, GraphQLInt, GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLSchema} = graphql;
+const {GraphQLString, GraphQLInt, GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLSchema} = graphql;
 
 const MovieType = new GraphQLObjectType({
   name: 'Movie',
   fields: () => ({
-    id: {type: GraphQLID},
+    id: {type: GraphQLString},
     title: {type: GraphQLString, description: 'The title of the movie'},
     description: {type: GraphQLString},
     year: {type: GraphQLInt},
@@ -28,7 +28,7 @@ const MovieType = new GraphQLObjectType({
 const DirectorType = new GraphQLObjectType({
   name: 'Director',
   fields: {
-    id: {type: GraphQLID},
+    id: {type: GraphQLString},
     name: {type: GraphQLString},
     birth: {type: GraphQLInt},
     movies: {
@@ -46,7 +46,7 @@ const RootQueryType = new GraphQLObjectType({
   fields: {
     movie: {
       type: MovieType,
-      args: {id: {type: GraphQLID}},
+      args: {id: {type: GraphQLString}},
       resolve: (parent, args) => {
         // return _.find(movies, {id: args.id});
         return Movie.findById(args.id);
@@ -54,7 +54,7 @@ const RootQueryType = new GraphQLObjectType({
     },
     director: {
       type: DirectorType,
-      args: {id: {type: GraphQLID}},
+      args: {id: {type: GraphQLString}},
       resolve: (parent, args) => {
         // return _.find(directors, {id: args.id});
         return Director.findById(args.id);

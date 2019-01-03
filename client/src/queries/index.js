@@ -14,6 +14,24 @@ export const getMoviesQuery = gql`
   }
 `;
 
+export const getMovieQuery = gql`
+  query($id: String){
+    movie(id:$id){
+      id,
+      title,
+      year,
+      description,
+      director{
+        name
+        movies{
+          id
+          title
+        }
+      }
+    }
+  }
+`;
+
 export const getDirectorsQuery = gql`
   {
     directors{
