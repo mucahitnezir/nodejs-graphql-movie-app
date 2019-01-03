@@ -21,22 +21,32 @@ class NewMovieForm extends Component {
     return (
       <div>
         <h2 className="h3 text-center">Add New Movie</h2>
-        <Mutation mutation={addMovieMutation}>
+        <Mutation
+          mutation={addMovieMutation}
+          onCompleted={e => {
+            this.formRef.reset()
+          }}
+        >
           {(addMovie, {loading, error}) => (
             <div className="card">
               <div className="card-body">
-                <form onSubmit={e => {
-                  e.preventDefault();
-                  addMovie({
-                    variables: {
-                      title: this.state.title,
-                      description: this.state.description,
-                      year: parseInt(this.state.year),
-                      directorId: this.state.directorId
-                    },
-                    refetchQueries: [{query: getMoviesQuery}]
-                  })
-                }}>
+                <form
+                  ref={el => {
+                    this.formRef = el;
+                  }}
+                  onSubmit={e => {
+                    e.preventDefault();
+                    addMovie({
+                      variables: {
+                        title: this.state.title,
+                        description: this.state.description,
+                        year: parseInt(this.state.year),
+                        directorId: this.state.directorId
+                      },
+                      refetchQueries: [{query: getMoviesQuery}]
+                    })
+                  }}
+                >
                   <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input type="text" name="title" id="title" className="form-control" onChange={this.onChange}/>
