@@ -3,7 +3,7 @@
 const graphql = require('graphql');
 // const _ = require('lodash');
 
-// const {movies, directors} = require('../data/fake-data');
+// const {movies, directors} = require('../fake-data');
 const {Movie, Director} = require('../models');
 
 const {GraphQLString, GraphQLInt, GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLSchema} = graphql;
@@ -15,6 +15,7 @@ const MovieType = new GraphQLObjectType({
     title: {type: GraphQLString, description: 'The title of the movie'},
     description: {type: GraphQLString},
     year: {type: GraphQLInt},
+    createdAt: {type: GraphQLString},
     director: {
       type: DirectorType,
       resolve: (parent, args) => {
@@ -30,7 +31,8 @@ const DirectorType = new GraphQLObjectType({
   fields: {
     id: {type: GraphQLString},
     name: {type: GraphQLString},
-    birth: {type: GraphQLInt},
+    birthDate: {type: GraphQLString},
+    createdAt: {type: GraphQLString},
     movies: {
       type: new GraphQLList(MovieType),
       resolve: (parent, args) => {
@@ -102,12 +104,12 @@ const Mutation = new GraphQLObjectType({
       type: DirectorType,
       args: {
         name: {type: new GraphQLNonNull(GraphQLString)},
-        birth: {type: GraphQLInt}
+        birthDate: {type: GraphQLString}
       },
       resolve: (parent, args) => {
         const director = new Director({
           name: args.name,
-          birth: args.birth
+          birthDate: args.birthDate
         });
         return director.save();
       }

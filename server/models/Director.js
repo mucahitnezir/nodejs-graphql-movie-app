@@ -5,7 +5,11 @@ const Schema = mongoose.Schema;
 
 const directorSchema = new Schema({
   name: String,
-  birth: Number
+  birthDate: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const Director = mongoose.model('Director', directorSchema);

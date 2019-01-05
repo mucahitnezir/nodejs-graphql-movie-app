@@ -7,7 +7,11 @@ const movieSchema = new Schema({
   title: String,
   description: String,
   year: Number,
-  directorId: String
+  directorId: Schema.ObjectId,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const Movie = mongoose.model('Movie', movieSchema);
