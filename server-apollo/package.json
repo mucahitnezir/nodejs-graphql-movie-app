@@ -4,7 +4,8 @@
   "description": "GraphQL + Express + Apollo",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "start:dev": "nodemon --ext js,graphql app.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "graphql": "^14.0.2",
+    "graphql-import": "^0.7.1",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
