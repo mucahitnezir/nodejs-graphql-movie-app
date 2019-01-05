@@ -1,9 +1,9 @@
 'use strict';
 
-const _ = require('lodash');
-
 const Director = {
-  movies: (parent, args, {db}) => _.filter(db.movies, {directorId: parent.id})
+  movies: (parent, args, {Movie}) => {
+    return Movie.find({directorId: parent.id});
+  }
 };
 
 module.exports = Director;

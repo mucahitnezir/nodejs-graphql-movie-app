@@ -4,7 +4,8 @@ const { importSchema } = require('graphql-import');
 const { ApolloServer } = require('apollo-server-express');
 
 // Fake data
-const db = require('../fake-data');
+// const db = require('../fake-data');
+const db = require('../models');
 
 // Type definitions and resolvers
 const schemaPath = `${__dirname}/schema/schema.graphql`;
@@ -15,7 +16,9 @@ const resolvers = require('./resolvers');
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: {db}
+  context: {
+    ...db
+  }
 });
 
 module.exports = server;

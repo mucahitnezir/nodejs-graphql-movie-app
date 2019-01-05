@@ -10,11 +10,11 @@ type Mutation {
 type Director {
   id: ID!
   name: String!
-  birth: Int
+  birthDate: String
   movies: [Movie!]
 }
 
 input AddDirectorInput {
   name: String!
-  birth: Int
+  birthDate: String
 }

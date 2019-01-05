@@ -12,6 +12,7 @@ type Movie {
   title: String!
   description: String
   year: Int!
+  createdAt: String!
   director: Director!
 }
 

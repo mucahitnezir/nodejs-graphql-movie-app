@@ -1,15 +1,11 @@
 'use strict';
 
-const _ = require('lodash');
-
 const directorMutations = {
-  addDirector: (parent, args, {db}) => {
-    const director = {
-      id: Math.random().toString().substr(2, 10),
+  addDirector: async (parent, args, {Director}) => {
+    const director = new Director({
       ...args.data
-    };
-    db.directors.push(director);
-    return director;
+    });
+    return director.save();
   }
 };
 

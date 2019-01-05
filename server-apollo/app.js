@@ -3,6 +3,12 @@
 const cors = require('cors');
 const express = require('express');
 
+// Process Environments
+require('dotenv').config();
+
+// Database
+require('./database');
+
 // Apollo GraphQL Server
 const server = require('./graphql/server');
 

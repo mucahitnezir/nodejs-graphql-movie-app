@@ -1,12 +1,19 @@
 'use strict';
 
-const _ = require('lodash');
-
 const Query = {
-  director: (parent, args, {db}) => _.find(db.directors, {id: args.id}),
-  directors: (parent, args, {db}) => db.directors,
-  movie: (parent, args, {db}) => _.find(db.movies, {id: args.id}),
-  movies: (parent, args, {db}) => db.movies
+  director: (parent, args, {Director}) => {
+    return Director.findById(args.id);
+  },
+  directors: (parent, args, {Director}) => {
+    return Director.find({});
+  },
+
+  movie: (parent, args, {Movie}) => {
+    return Movie.findById(args.id);
+  },
+  movies: (parent, args, {Movie}) => {
+    return Movie.find({});
+  }
 };
 
 module.exports = Query;
